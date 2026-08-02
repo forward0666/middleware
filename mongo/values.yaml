@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: mongo
-  tag: 8.2
+  tag: 8.0.4
   pullPolicy: IfNotPresent
 
 service:
@@ -10,7 +10,7 @@ service:
   port: 27017
 
 rootUser: root
-rootPassword: changeme123
+rootPassword: MongoAdmin2026!
 
 persistence:
   enabled: true
@@ -19,8 +19,8 @@ persistence:
 
 resources:
   requests:
-    memory: 512Mi
+    memory: 256Mi
     cpu: 200m
   limits:
     memory: 1Gi
-    cpu: 500m
+    cpu: 1000m

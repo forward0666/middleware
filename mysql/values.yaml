@@ -2,14 +2,14 @@ replicaCount: 1
 
 image:
   repository: mysql
-  tag: 8.4
+  tag: 8.4.3
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 3306
 
-rootPassword: changeme123
+rootPassword: MysqlAdmin2026!
 database: ""
 
 persistence:
@@ -19,8 +19,8 @@ persistence:
 
 resources:
   requests:
-    memory: 512Mi
+    memory: 256Mi
     cpu: 200m
   limits:
     memory: 1Gi
-    cpu: 500m
+    cpu: 1000m

@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: rabbitmq
-  tag: 3.13.7-management
+  tag: 3.13.7-management-alpine
   pullPolicy: IfNotPresent
 
 service:
@@ -11,8 +11,8 @@ service:
     amqp: 5672
     management: 15672
 
-user: guest
-password: guest
+user: middleware
+password: RabbitMQ2026!
 
 persistence:
   enabled: true
@@ -23,5 +23,5 @@ resources:
     memory: 128Mi
     cpu: 100m
   limits:
-    memory: 256Mi
-    cpu: 200m
+    memory: 512Mi
+    cpu: 500m

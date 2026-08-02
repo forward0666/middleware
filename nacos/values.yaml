@@ -18,8 +18,8 @@ db:
   host: middleware-mysql
   port: 3306
   name: nacos
-  user: root
-  password: changeme123
+  user: nacos
+  password: NacosDB2026!
 
 auth:
   token: "TkFDT1NfQVVUSF9UT0tFTl82NEJZVEVTX0JBU0U2NF9TRUNSRVRfS0VZXzIwMjY="
@@ -31,8 +31,8 @@ persistence:
 
 resources:
   requests:
-    memory: 512Mi
+    memory: 256Mi
     cpu: 200m
   limits:
-    memory: 1Gi
+    memory: 768Mi
     cpu: 500m

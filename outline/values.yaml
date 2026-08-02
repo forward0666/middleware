@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: docker.getoutline.com/outlinewiki/outline
-  tag: latest
+  tag: 0.81.0
   pullPolicy: IfNotPresent
 
 service:
@@ -45,7 +45,7 @@ minio:
 env:
   SECRET_KEY: "bac3c713a283273fd1764c81efc242721bbc228fd9f78c4dd9a45328b7284efd"
   UTILS_SECRET: "6f7aaea86de00f6f794b1d3c1324d9aad6ff1546b89220cb8535428a537ded96"
-  DEFAULT_LANGUAGE: "en_US"
+  DEFAULT_LANGUAGE: "zh_CN"
   FORCE_HTTPS: "false"
   URL: "http://outline.local"
 

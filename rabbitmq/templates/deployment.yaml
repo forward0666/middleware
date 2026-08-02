@@ -19,11 +19,11 @@ spec:
             - containerPort: 5672
             - containerPort: 15672
           env:
-            - name: RABBITMQ_CONFIG_FILE
-              value: /etc/rabbitmq/rabbitmq.conf
+            - name: RABBITMQ_DEFAULT_USER
+              value: "{{ .Values.user }}"
+            - name: RABBITMQ_DEFAULT_PASS
+              value: "{{ .Values.password }}"
             - name: RABBITMQ_ERLANG_COOKIE
               value: secret-cookie-for-cluster
-              value: "{{ .Values.user }}"
-              value: "{{ .Values.password }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
