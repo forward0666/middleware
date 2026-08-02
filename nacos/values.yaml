@@ -20,11 +20,22 @@ db:
   name: nacos
   user: nacos
   password: NacosDB2026!
+  params: "characterEncoding=utf8&connectTimeout=2000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=UTC"
+  pool:
+    maxActive: 20
+    maxWait: 5000
 
 auth:
   token: "TkFDT1NfQVVUSF9UT0tFTl82NEJZVEVTX0JBU0U2NF9TRUNSRVRfS0VZXzIwMjY="
   identityKey: "nacosIdentityKey"
   identityValue: "nacosIdentityValue2026"
+  tokenExpireSeconds: 28800
+  cacheEnabled: true
+
+jvm:
+  xms: 512m
+  xmx: 512m
+  xmn: 256m
 
 persistence:
   enabled: false

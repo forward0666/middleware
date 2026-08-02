@@ -17,6 +17,20 @@ databases:
     user: litellm
     password: changeme123
 
+config:
+  maxConnections: 50
+  sharedBuffers: 128MB
+  workMem: 16MB
+  effectiveCacheSize: 384MB
+  maintenanceWorkMem: 64MB
+  randomPageCost: 1.1
+  effectiveIoConcurrency: 2
+  walLevel: minimal
+  maxWalSize: 1GB
+  minWalSize: 256MB
+  checkpointTimeout: 900
+  logMinDurationStatement: 1000
+
 persistence:
   enabled: true
   size: 5Gi

@@ -11,6 +11,7 @@ service:
 
 rootUser: root
 rootPassword: MongoAdmin2026!
+initDatabase: admin
 
 persistence:
   enabled: true

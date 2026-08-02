@@ -32,6 +32,8 @@ spec:
               value: "{{ .Values.db.user }}"
             - name: MYSQL_SERVICE_PASSWORD
               value: "{{ .Values.db.password }}"
+            - name: MYSQL_SERVICE_DB_PARAM
+              value: "{{ .Values.db.params }}"
             - name: NACOS_SERVER_PORT
               value: "8848"
             - name: NACOS_AUTH_ENABLE
@@ -42,5 +44,15 @@ spec:
               value: "{{ .Values.auth.identityKey }}"
             - name: NACOS_AUTH_IDENTITY_VALUE
               value: "{{ .Values.auth.identityValue }}"
+            - name: NACOS_AUTH_TOKEN_EXPIRE_SECONDS
+              value: "{{ .Values.auth.tokenExpireSeconds }}"
+            - name: NACOS_AUTH_CACHE_ENABLE
+              value: "{{ .Values.auth.cacheEnabled }}"
+            - name: JVM_XMS
+              value: "{{ .Values.jvm.xms }}"
+            - name: JVM_XMX
+              value: "{{ .Values.jvm.xmx }}"
+            - name: JVM_XMN
+              value: "{{ .Values.jvm.xmn }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

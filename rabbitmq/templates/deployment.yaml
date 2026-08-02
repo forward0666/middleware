@@ -25,5 +25,7 @@ spec:
               value: "{{ .Values.password }}"
             - name: RABBITMQ_ERLANG_COOKIE
               value: secret-cookie-for-cluster
+            - name: RABBITMQ_VM_MEMORY_HIGH_WATERMARK
+              value: "{{ .Values.config.vm_memory_high_watermark }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -45,6 +45,27 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: postgres_password
+            - name: POSTGRES_CONFIG_FILE
+              value: /etc/postgresql/postgresql.conf
+          command:
+            - sh
+            - -c
+            - |
+              cat > /etc/postgresql/postgresql.conf << 'EOF'
+              max_connections = {{ .Values.config.maxConnections }}
+              shared_buffers = '{{ .Values.config.sharedBuffers }}'
+              work_mem = '{{ .Values.config.workMem }}'
+              effective_cache_size = '{{ .Values.config.effectiveCacheSize }}'
+              maintenance_work_mem = '{{ .Values.config.maintenanceWorkMem }}'
+              random_page_cost = {{ .Values.config.randomPageCost }}
+              effective_io_concurrency = {{ .Values.config.effectiveIoConcurrency }}
+              wal_level = {{ .Values.config.walLevel }}
+              max_wal_size = '{{ .Values.config.maxWalSize }}'
+              min_wal_size = '{{ .Values.config.minWalSize }}'
+              checkpoint_timeout = {{ .Values.config.checkpointTimeout }}
+              log_min_duration_statement = {{ .Values.config.logMinDurationStatement }}
+              EOF
+              docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
