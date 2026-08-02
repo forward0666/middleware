@@ -20,7 +20,7 @@ ingress:
 postgresql:
   enabled: false
   external:
-    host: outline-db-postgresql
+    host: middleware-postgres
     port: 5432
     database: outline
     user: outline
@@ -29,14 +29,14 @@ postgresql:
 redis:
   enabled: false
   external:
-    host: outline-redis-master
+    host: middleware-redis
     port: 6379
     password: ""
 
 minio:
   enabled: false
   external:
-    endpoint: outline-minio:9000
+    endpoint: middleware-minio:9000
     accessKey: outline
     secretKey: OutlineMinio2026!
     bucket: outline

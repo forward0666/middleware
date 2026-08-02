@@ -15,7 +15,7 @@ accessKey: minioadmin
 secretKey: minioadmin
 
 persistence:
-  enabled: true
+  enabled: false
   size: 10Gi
 
 resources:

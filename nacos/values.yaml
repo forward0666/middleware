@@ -15,7 +15,7 @@ service:
 mode: standalone
 
 db:
-  host: mysql
+  host: middleware-mysql
   port: 3306
   name: nacos
   user: root
