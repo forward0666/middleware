@@ -12,7 +12,7 @@ service:
     console: 9001
 
 accessKey: minioadmin
-secretKey: minioadmin
+secretKey: MinioAdmin2026!
 
 persistence:
   enabled: false

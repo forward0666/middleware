@@ -10,7 +10,7 @@ service:
   port: 4000
 
 db:
-  host: postgres
+  host: middleware-postgres
   port: 5432
   name: litellm
   user: litellm

@@ -22,7 +22,7 @@ db:
   password: changeme123
 
 auth:
-  token: "QWJjRGVmMTIzNDU2S2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTA="
+  token: "TkFDT1NfQVVUSF9UT0tFTl82NEJZVEVTX0JBU0U2NF9TRUNSRVRfS0VZXzIwMjY="
   identityKey: "nacosIdentityKey"
   identityValue: "nacosIdentityValue2026"
 

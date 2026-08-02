@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: rabbitmq
-  tag: 3.13-management
+  tag: 3.13.7-management
   pullPolicy: IfNotPresent
 
 service:
