@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: corentinth/it-tools
-  tag: 2023.11.2
+  tag: 2023.12.21-5ed3693
   pullPolicy: IfNotPresent
 
 service:
