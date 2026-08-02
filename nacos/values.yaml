@@ -21,6 +21,11 @@ db:
   user: root
   password: changeme123
 
+auth:
+  token: "QWJjRGVmMTIzNDU2S2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTA="
+  identityKey: "nacosIdentityKey"
+  identityValue: "nacosIdentityValue2026"
+
 persistence:
   enabled: false
 
@@ -31,6 +36,3 @@ resources:
   limits:
     memory: 1Gi
     cpu: 500m
-
-auth:
-  token: "QWJjRGVmMTIzNDU2S2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OTA="

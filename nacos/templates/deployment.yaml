@@ -34,9 +34,13 @@ spec:
               value: "{{ .Values.db.password }}"
             - name: NACOS_SERVER_PORT
               value: "8848"
-            - name: NACOS_AUTH_TOKEN
-              value: "{{ .Values.auth.token }}"
             - name: NACOS_AUTH_ENABLE
               value: "true"
+            - name: NACOS_AUTH_TOKEN
+              value: "{{ .Values.auth.token }}"
+            - name: NACOS_AUTH_IDENTITY_KEY
+              value: "{{ .Values.auth.identityKey }}"
+            - name: NACOS_AUTH_IDENTITY_VALUE
+              value: "{{ .Values.auth.identityValue }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
