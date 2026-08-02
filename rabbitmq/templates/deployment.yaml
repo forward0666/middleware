@@ -12,6 +12,10 @@ spec:
       labels:
         app: {{ include "rabbitmq.name" . }}
     spec:
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "rabbitmq.fullname" . }}-config
       containers:
         - name: rabbitmq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -25,5 +29,9 @@ spec:
               value: "{{ .Values.password }}"
             - name: RABBITMQ_ERLANG_COOKIE
               value: secret-cookie-for-cluster
+          volumeMounts:
+            - name: config
+              mountPath: /etc/rabbitmq/rabbitmq.conf
+              subPath: rabbitmq.conf
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

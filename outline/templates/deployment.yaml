@@ -24,7 +24,11 @@ spec:
             - name: PGSSLMODE
               value: "disable"
             - name: DATABASE_URL
-              value: "postgres://{{ .Values.postgresql.external.user }}:{{ .Values.postgresql.external.password }}@{{ .Values.postgresql.external.host }}:{{ .Values.postgresql.external.port }}/{{ .Values.postgresql.external.database }}"
+              value: "postgres://{{ .Values.postgresql.external.user }}:{{ .Values.postgresql.external.password }}@{{ .Values.postgresql.external.host }}:{{ .Values.postgresql.external.port }}/{{ .Values.postgresql.external.database }}?pool_min={{ .Values.postgresql.external.poolMin }}&pool_max={{ .Values.postgresql.external.poolMax }}"
+            - name: DATABASE_CONNECTION_POOL_MIN
+              value: "{{ .Values.postgresql.external.poolMin }}"
+            - name: DATABASE_CONNECTION_POOL_MAX
+              value: "{{ .Values.postgresql.external.poolMax }}"
             - name: REDIS_URL
               value: "redis://{{ .Values.redis.external.host }}:{{ .Values.redis.external.port }}"
             - name: AWS_ACCESS_KEY_ID
@@ -53,5 +57,17 @@ spec:
               value: "{{ .Values.env.FORCE_HTTPS }}"
             - name: URL
               value: "{{ .Values.env.URL }}"
+            - name: LOG_LEVEL
+              value: "{{ .Values.config.logLevel }}"
+            - name: MAX_IMPORT_SIZE
+              value: "{{ .Values.config.maxImportSize }}"
+            - name: RATE_LIMITER_ENABLED
+              value: "true"
+            - name: RATE_LIMITER_REQUESTS
+              value: "{{ .Values.config.rateLimitPerMinute }}"
+            - name: PG_POOL_MIN
+              value: "{{ .Values.config.pgPoolMin }}"
+            - name: PG_POOL_MAX
+              value: "{{ .Values.config.pgPoolMax }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

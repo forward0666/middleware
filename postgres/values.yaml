@@ -20,16 +20,33 @@ databases:
 config:
   maxConnections: 50
   sharedBuffers: 128MB
-  workMem: 16MB
-  effectiveCacheSize: 384MB
+  workMem: 8MB
   maintenanceWorkMem: 64MB
+  effectiveCacheSize: 384MB
   randomPageCost: 1.1
   effectiveIoConcurrency: 2
-  walLevel: minimal
+  walLevel: replica
   maxWalSize: 1GB
   minWalSize: 256MB
   checkpointTimeout: 900
+  maxWalBuffers: 16MB
+  walBuffers: 16MB
+  checkpointCompletion: 0.9
   logMinDurationStatement: 1000
+  maxWorkerProcesses: 2
+  maxParallelWorkers: 2
+  maxParallelWorkersPerGather: 1
+  maxParallelMaintenanceWorkers: 1
+  autovacuum: on
+  autovacuumMaxWorkers: 2
+  autovacuumNaptime: 60
+  autovacuumVacuumThreshold: 50
+  autovacuumVacuumScaleFactor: 0.01
+  idleInTransactionSessionTimeout: 60000
+  tcpKeepalivesIdle: 60
+  tcpKeepalivesInterval: 10
+  tcpKeepalivesCount: 6
+  statementTimeout: 30000
 
 persistence:
   enabled: true

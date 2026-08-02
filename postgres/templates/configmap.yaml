@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres.fullname" . }}-config
+data:
+  postgresql.conf: |
+    # Connection
+    max_connections = {{ .Values.config.maxConnections }}
+    superuser_reserved_connections = 5
+
+    # Memory
+    shared_buffers = '{{ .Values.config.sharedBuffers }}'
+    work_mem = '{{ .Values.config.workMem }}'
+    maintenance_work_mem = '{{ .Values.config.maintenanceWorkMem }}'
+    effective_cache_size = '{{ .Values.config.effectiveCacheSize }}'
+    wal_buffers = '{{ .Values.config.walBuffers }}'
+
+    # WAL
+    wal_level = {{ .Values.config.walLevel }}
+    max_wal_size = '{{ .Values.config.maxWalSize }}'
+    min_wal_size = '{{ .Values.config.minWalSize }}'
+    checkpoint_timeout = {{ .Values.config.checkpointTimeout }}
+    checkpoint_completion_target = {{ .Values.config.checkpointCompletion }}
+    wal_buffers = '{{ .Values.config.walBuffers }}'
+
+    # Query tuning
+    random_page_cost = {{ .Values.config.randomPageCost }}
+    effective_io_concurrency = {{ .Values.config.effectiveIoConcurrency }}
+
+    # Parallel
+    max_worker_processes = {{ .Values.config.maxWorkerProcesses }}
+    max_parallel_workers = {{ .Values.config.maxParallelWorkers }}
+    max_parallel_workers_per_gather = {{ .Values.config.maxParallelWorkersPerGather }}
+    max_parallel_maintenance_workers = {{ .Values.config.maxParallelMaintenanceWorkers }}
+
+    # Autovacuum
+    autovacuum = {{ .Values.config.autovacuum }}
+    autovacuum_max_workers = {{ .Values.config.autovacuumMaxWorkers }}
+    autovacuum_naptime = {{ .Values.config.autovacuumNaptime }}
+    autovacuum_vacuum_threshold = {{ .Values.config.autovacuumVacuumThreshold }}
+    autovacuum_vacuum_scale_factor = {{ .Values.config.autovacuumVacuumScaleFactor }}
+
+    # Timeout
+    idle_in_transaction_session_timeout = {{ .Values.config.idleInTransactionSessionTimeout }}
+    statement_timeout = {{ .Values.config.statementTimeout }}
+
+    # TCP Keepalive
+    tcp_keepalives_idle = {{ .Values.config.tcpKeepalivesIdle }}
+    tcp_keepalives_interval = {{ .Values.config.tcpKeepalivesInterval }}
+    tcp_keepalives_count = {{ .Values.config.tcpKeepalivesCount }}
+
+    # Logging
+    log_min_duration_statement = {{ .Values.config.logMinDurationStatement }}
+    log_checkpoints = on
+    log_connections = off
+    log_disconnections = off

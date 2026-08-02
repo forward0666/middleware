@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rabbitmq.fullname" . }}-config
+data:
+  rabbitmq.conf: |
+    # Memory
+    vm_memory_high_watermark.relative = {{ .Values.config.vm_memory_high_watermark }}
+    vm_memory_high_watermark_paging_ratio = {{ .Values.config.vm_memory_high_watermark_paging_ratio }}
+    disk_free_limit.absolute = {{ .Values.config.disk_free_limit }}
+
+    # Connections
+    heartbeat = {{ .Values.config.heartbeat }}
+    connection_max = {{ .Values.config.connection_max }}
+    channel_max = {{ .Values.config.channel_max }}
+
+    # Performance tuning
+    tcp_listen_options.backlog = {{ .Values.config.tcp_listen_options.backlog }}
+    tcp_listen_options.nodelay = {{ .Values.config.tcp_listen_options.nodelay }}
+    management_agent.disable_metrics_collector = {{ .Values.config.management_agent.disable_metrics_collector }}
+    collect_statistics = {{ .Values.config.collect_statistics }}
+    num_acceptors.tcp = 4
+    num_acceptors.ssl = 0
+    default_vhost = /
+    default_user = {{ .Values.user }}
+    default_pass = {{ .Values.password }}
+    loopback_users.guest = false
+    cluster_partition_handling = pause_minority
+    queue_master_locator = min-masters

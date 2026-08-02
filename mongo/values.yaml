@@ -13,6 +13,21 @@ rootUser: root
 rootPassword: MongoAdmin2026!
 initDatabase: admin
 
+config:
+  wiredTigerCacheSizeGb: 0.5
+  wiredTigerMaxCacheOverflow: 1
+  maxConnections: 100
+  operationProfilingMode: slowOp
+  slowOpThresholdMs: 200
+  logLevel: 0
+  setParameter:
+    internalQueryExecMaxBlockingSortBytes: 33554432
+    internalQueryMaxHashMemory: 52428800
+    internalQueryMaxRangeBlockingLimit: 10000
+    internalQueryFrameworkControl: ""
+    transactionLifetimeLimitSeconds: 60
+    maxTransactionLockRequestTimeoutMillis: 5
+
 persistence:
   enabled: true
   size: 5Gi

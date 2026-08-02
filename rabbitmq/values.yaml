@@ -14,11 +14,19 @@ service:
 user: middleware
 password: RabbitMQ2026!
 
-# Memory high watermark: 0.6 means trigger at 60% of available RAM
-# In K8s with 512Mi limit, 60% = ~307Mi
 config:
   vm_memory_high_watermark: 0.6
   vm_memory_high_watermark_paging_ratio: 0.8
+  disk_free_limit: "256MB"
+  heartbeat: 60
+  connection_max: 500
+  channel_max: 500
+  tcp_listen_options:
+    backlog: 128
+    nodelay: true
+  management_agent:
+    disable_metrics_collector: false
+  collect_statistics: none
 
 persistence:
   enabled: true

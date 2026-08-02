@@ -15,9 +15,23 @@ db:
   name: litellm
   user: litellm
   password: changeme123
+  connectionPoolMax: 20
+  connectionPoolMin: 4
+  connectionTimeoutMs: 10000
 
 persistence:
   enabled: false
+
+config:
+  logLevel: warn
+  maxRequestSize: 50mb
+  redisHost: middleware-redis
+  redisPort: 6379
+  redisDb: 0
+  otelEnabled: false
+  rateLimitPerSecond: 100
+  numWorkers: 4
+  proxyLogging: false
 
 resources:
   requests:

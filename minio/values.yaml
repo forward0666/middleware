@@ -14,6 +14,18 @@ service:
 accessKey: minioadmin
 secretKey: MinioAdmin2026!
 
+config:
+  region: us-east-1
+  browser: on
+  maxConnections: 256
+  maxWorkers: 16
+  storageClass: STANDARD
+  apiRequestsMax: 100
+  enableCompression: true
+  maxUploadSize: 5Gi
+  memoryLimitMb: 256
+  driveCount: 1
+
 persistence:
   enabled: false
   size: 10Gi

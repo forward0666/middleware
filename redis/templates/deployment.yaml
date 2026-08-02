@@ -17,5 +17,24 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 6379
+          args:
+            - "--maxmemory 192m"
+            - "--maxmemory-policy allkeys-lru"
+            - "--timeout 300"
+            - "--tcp-keepalive 60"
+            - "--save 900 1"
+            - "--save 300 10"
+            - "--save 60 10000"
+            - "--lazyfree-lazy-eviction yes"
+            - "--lazyfree-lazy-expire yes"
+            - "--io-threads 2"
+            - "--io-threads-do-reads yes"
+            - "--appendonly no"
+            - "--appendfsync everysec"
+            - "--no-appendfsync-on-rewrite yes"
+            - "--auto-aof-rewrite-percentage 100"
+            - "--auto-aof-rewrite-min-size 64mb"
+            - "--hz 10"
+            - "--dynamic-hz yes"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

@@ -25,6 +25,8 @@ postgresql:
     database: outline
     user: outline
     password: OutlineDB2026!
+    poolMin: 2
+    poolMax: 20
 
 redis:
   enabled: false
@@ -48,6 +50,21 @@ env:
   DEFAULT_LANGUAGE: "zh_CN"
   FORCE_HTTPS: "false"
   URL: "http://outline.local"
+
+config:
+  logLevel: warn
+  maxImportSize: 50mb
+  rateLimitPerMinute: 60
+  documentsPerPage: 25
+  enableGuestSignin: false
+  enableEmailSignin: false
+  enableSlack: false
+  enableGoogle: false
+  enableMicrosoft: false
+  enableOidc: false
+  deleteDocumentsEvery: 5m
+  pgPoolMin: 2
+  pgPoolMax: 20
 
 resources:
   requests:

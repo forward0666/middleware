@@ -54,5 +54,17 @@ spec:
               value: "{{ .Values.jvm.xmx }}"
             - name: JVM_XMN
               value: "{{ .Values.jvm.xmn }}"
+            - name: JVM_MS
+              value: "{{ .Values.jvm.metaspace }}"
+            - name: JVM_MMS
+              value: "{{ .Values.jvm.maxMetaspace }}"
+            - name: MYSQL_SERVICE_DB_NUM
+              value: "1"
+            - name: DB_POOL_CONNECTION_TIMEOUT
+              value: "{{ .Values.db.pool.connectionTimeout }}"
+            - name: DB_POOL_MAX_LIFETIME
+              value: "{{ .Values.db.pool.maxLifetime }}"
+            - name: DB_POOL_VALIDATION_TIMEOUT
+              value: "{{ .Values.db.pool.validationTimeout }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

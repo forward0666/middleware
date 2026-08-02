@@ -9,6 +9,10 @@ service:
   type: ClusterIP
   port: 80
 
+config:
+  nodeEnv: production
+  logLevel: warn
+
 resources:
   requests:
     memory: 64Mi

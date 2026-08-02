@@ -12,6 +12,30 @@ service:
 rootPassword: MysqlAdmin2026!
 database: ""
 
+config:
+  characterSetServer: utf8mb4
+  collationServer: utf8mb4_unicode_ci
+  maxConnections: 100
+  connectTimeout: 10
+  waitTimeout: 28800
+  maxAllowedPacket: 64M
+  sortBufferSize: 4M
+  joinBufferSize: 4M
+  threadCacheSize: 8
+  innodb:
+    bufferPoolSize: 512M
+    logFileSize: 128M
+    flushLogAtTrxCommit: 1
+    flushMethod: O_DIRECT
+    ioCapacity: 200
+    readIoThreads: 4
+    writeIoThreads: 4
+    lockWaitTimeout: 50
+    logBufferSize: 16M
+    changeBuffering: all
+    autoincLockMode: 2
+    tempDataFileMaxSize: 256M
+
 persistence:
   enabled: true
   size: 5Gi

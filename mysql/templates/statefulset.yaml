@@ -24,6 +24,31 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: root_password
+            - name: MYSQL_DATABASE
+              value: "{{ .Values.database }}"
+          command:
+            - mysqld
+            - --character-set-server={{ .Values.config.characterSetServer }}
+            - --collation-server={{ .Values.config.collationServer }}
+            - --max_connections={{ .Values.config.maxConnections }}
+            - --connect_timeout={{ .Values.config.connectTimeout }}
+            - --wait_timeout={{ .Values.config.waitTimeout }}
+            - --max_allowed_packet={{ .Values.config.maxAllowedPacket }}
+            - --sort_buffer_size={{ .Values.config.sortBufferSize }}
+            - --join_buffer_size={{ .Values.config.joinBufferSize }}
+            - --thread_cache_size={{ .Values.config.threadCacheSize }}
+            - --innodb_buffer_pool_size={{ .Values.config.innodb.bufferPoolSize }}
+            - --innodb_log_file_size={{ .Values.config.innodb.logFileSize }}
+            - --innodb_flush_log_at_trx_commit={{ .Values.config.innodb.flushLogAtTrxCommit }}
+            - --innodb_flush_method={{ .Values.config.innodb.flushMethod }}
+            - --innodb_io_capacity={{ .Values.config.innodb.ioCapacity }}
+            - --innodb_read_io_threads={{ .Values.config.innodb.readIoThreads }}
+            - --innodb_write_io_threads={{ .Values.config.innodb.writeIoThreads }}
+            - --innodb_lock_wait_timeout={{ .Values.config.innodb.lockWaitTimeout }}
+            - --innodb_log_buffer_size={{ .Values.config.innodb.logBufferSize }}
+            - --innodb_change_buffering={{ .Values.config.innodb.changeBuffering }}
+            - --innodb_autoinc_lock_mode={{ .Values.config.innodb.autoincLockMode }}
+            - --innodb_temp_data_file_path=ibtmp1:{  .Values.config.innodb.tempDataFileMaxSize }:autoextend:max:512M
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql

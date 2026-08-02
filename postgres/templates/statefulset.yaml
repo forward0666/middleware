@@ -45,13 +45,11 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: postgres_password
-            - name: POSTGRES_CONFIG_FILE
-              value: /etc/postgresql/postgresql.conf
           command:
             - sh
             - -c
             - |
-              cat > /etc/postgresql/postgresql.conf << 'EOF'
+              cat > /etc/postgresql/postgresql.conf << 'PGEOF'
               max_connections = {{ .Values.config.maxConnections }}
               shared_buffers = '{{ .Values.config.sharedBuffers }}'
               work_mem = '{{ .Values.config.workMem }}'
@@ -62,9 +60,28 @@ spec:
               wal_level = {{ .Values.config.walLevel }}
               max_wal_size = '{{ .Values.config.maxWalSize }}'
               min_wal_size = '{{ .Values.config.minWalSize }}'
+              wal_buffers = '{{ .Values.config.walBuffers }}'
               checkpoint_timeout = {{ .Values.config.checkpointTimeout }}
+              checkpoint_completion_target = {{ .Values.config.checkpointCompletionTarget }}
+              max_worker_processes = {{ .Values.config.maxWorkerProcesses }}
+              max_parallel_workers = {{ .Values.config.maxParallelWorkers }}
+              max_parallel_workers_per_gather = {{ .Values.config.maxParallelWorkersPerGather }}
+              parallel_tuple_cost = {{ .Values.config.parallelTupleCost }}
               log_min_duration_statement = {{ .Values.config.logMinDurationStatement }}
-              EOF
+              log_checkpoints = {{ .Values.config.logCheckpoints }}
+              log_autovacuum_min_duration = {{ .Values.config.logAutoVacuumMinDuration }}
+              autovacuum_max_workers = {{ .Values.config.autovacuumMaxWorkers }}
+              autovacuum_naptime = {{ .Values.config.autovacuumNaptime }}
+              autovacuum_vacuum_threshold = {{ .Values.config.autovacuumVacuumThreshold }}
+              autovacuum_vacuum_scale_factor = {{ .Values.config.autovacuumVacuumScaleFactor }}
+              autovacuum_analyze_threshold = {{ .Values.config.autovacuumAnalyzeThreshold }}
+              autovacuum_analyze_scale_factor = {{ .Values.config.autovacuumAnalyzeScaleFactor }}
+              temp_buffers = '{{ .Values.config.tempBuffers }}'
+              max_files_per_process = {{ .Values.config.maxFilesPerProcess }}
+              bgwriter_delay = {{ .Values.config.bgwriterDelay }}
+              bgwriter_lru_maxpages = {{ .Values.config.bgwriterLRUMaxpages }}
+              bgwriter_lru_multiplier = {{ .Values.config.bgwriterLRUMultiplier }}
+              PGEOF
               docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf
           volumeMounts:
             - name: data

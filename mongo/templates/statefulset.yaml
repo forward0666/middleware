@@ -28,6 +28,20 @@ spec:
                   key: root_password
             - name: MONGO_INITDB_DATABASE
               value: "{{ .Values.initDatabase }}"
+          command:
+            - mongod
+            - --wiredTigerCacheSizeGB={{ .Values.config.wiredTigerCacheSizeGb }}
+            - --maxConns={{ .Values.config.maxConnections }}
+            - --slowms={{ .Values.config.slowOpThresholdMs }}
+            - --profile={{ .Values.config.operationProfilingMode }}
+            - --setParameter
+            - "internalQueryExecMaxBlockingSortBytes={{ .Values.config.setParameter.internalQueryExecMaxBlockingSortBytes }}"
+            - --setParameter
+            - "internalQueryMaxHashMemory={{ .Values.config.setParameter.internalQueryMaxHashMemory }}"
+            - --setParameter
+            - "transactionLifetimeLimitSeconds={{ .Values.config.setParameter.transactionLifetimeLimitSeconds }}"
+            - --setParameter
+            - "maxTransactionLockRequestTimeoutMillis={{ .Values.config.setParameter.maxTransactionLockRequestTimeoutMillis }}"
           volumeMounts:
             - name: data
               mountPath: /data/db
