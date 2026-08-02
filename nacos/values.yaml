@@ -18,8 +18,8 @@ db:
   host: middleware-mysql
   port: 3306
   name: nacos
-  user: nacos
-  password: NacosDB2026!
+  user: root
+  password: MysqlAdmin2026!
   params: "characterEncoding=utf8&connectTimeout=2000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=UTC"
   pool:
     maxActive: 20
