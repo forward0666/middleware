@@ -48,7 +48,7 @@ spec:
             - --innodb_log_buffer_size={{ .Values.config.innodb.logBufferSize }}
             - --innodb_change_buffering={{ .Values.config.innodb.changeBuffering }}
             - --innodb_autoinc_lock_mode={{ .Values.config.innodb.autoincLockMode }}
-            - --innodb_temp_data_file_path=ibtmp1:{  .Values.config.innodb.tempDataFileMaxSize }:autoextend:max:512M
+            - --innodb_temp_data_file_path=ibtmp1:{{ .Values.config.innodb.tempDataFileMaxSize }}:autoextend:max:512M
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql

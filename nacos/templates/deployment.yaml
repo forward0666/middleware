@@ -36,6 +36,8 @@ spec:
               value: "{{ .Values.db.params }}"
             - name: NACOS_SERVER_PORT
               value: "8848"
+            - name: SPRING_DATASOURCE_PLATFORM
+              value: "mysql"
             - name: NACOS_AUTH_ENABLE
               value: "true"
             - name: NACOS_AUTH_TOKEN
