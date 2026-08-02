@@ -43,8 +43,8 @@ minio:
 
 # Outline env vars
 env:
-  SECRET_KEY: "change-me-to-a-random-secret-key-in-production"
-  UTILS_SECRET: "change-me-to-another-random-secret"
+  SECRET_KEY: "a1b2c3d4e5f6071829a0b1c2d3e4f50617283940a1b2c3d4e5f6071829a0b1c"
+  UTILS_SECRET: "f1e2d3c4b5a6978809f0e1d2c3b4a5968780f1e2d3c4b5a6978809f0e1d2c3b"
   DEFAULT_LANGUAGE: "en_US"
   FORCE_HTTPS: "false"
   URL: "http://outline.local"

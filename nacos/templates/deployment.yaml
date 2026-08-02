@@ -33,6 +33,10 @@ spec:
             - name: MYSQL_SERVICE_PASSWORD
               value: "{{ .Values.db.password }}"
             - name: NACOS_SERVER_PORT
+            - name: NACOS_AUTH_TOKEN
+              value: {{ .Values.auth.token }}
+            - name: NACOS_AUTH_ENABLE
+              value: true
               value: "8848"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
