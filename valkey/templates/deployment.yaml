@@ -17,38 +17,20 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 6379
-          command:
-            - sh
-            - -c
-            - |
-              cat > /usr/local/etc/valkey/valkey.conf << 'VALKEYEOF'
-              maxmemory {{ .Values.config.maxmemory }}
-              maxmemory-policy {{ .Values.config.maxmemoryPolicy }}
-              maxclients {{ .Values.config.maxclients }}
-              timeout {{ .Values.config.timeout }}
-              tcp-keepalive {{ .Values.config.tcpKeepalive }}
-              databases {{ .Values.config.databases }}
-              save 900 1
-              save 300 10
-              save 60 10000
-              appendonly {{ .Values.config.appendonly }}
-              appendfsync {{ .Values.config.appendfsync }}
-              no-appendfsync-on-rewrite {{ .Values.config.noAppendfsyncOnRewrite }}
-              auto-aof-rewrite-percentage {{ .Values.config.autoAofRewritePercentage }}
-              auto-aof-rewrite-min-size {{ .Values.config.autoAofRewriteMinSize }}
-              slowlog-log-slower-than {{ .Values.config.slowlogLogSlowerThan }}
-              slowlog-max-len {{ .Values.config.slowlogMaxLen }}
-              activedefrag {{ .Values.config.activedefrag }}
-              active-defrag-threshold-lower {{ .Values.config.activeDefragThresholdLower }}
-              active-defrag-threshold-upper {{ .Values.config.activeDefragThresholdUpper }}
-              active-defrag-cycle-min {{ .Values.config.activeDefragCycleMin }}
-              active-defrag-cycle-max {{ .Values.config.activeDefragCycleMax }}
-              lazyfree-lazy-eviction {{ .Values.config.lazyfreeLazyEviction }}
-              lazyfree-lazy-expire {{ .Values.config.lazyfreeLazyExpire }}
-              lazyfree-lazy-server-del {{ .Values.config.lazyfreeLazyServerDel }}
-              io-threads-do-reads {{ .Values.config.ioThreadsDoReads }}
-              io-threads {{ .Values.config.ioThreads }}
-              VALKEYEOF
-              valkey-server /usr/local/etc/valkey/valkey.conf
+          args:
+            - "--maxmemory 192m"
+            - "--maxmemory-policy allkeys-lru"
+            - "--timeout 300"
+            - "--tcp-keepalive 60"
+            - "--save 900 1"
+            - "--save 300 10"
+            - "--save 60 10000"
+            - "--lazyfree-lazy-eviction yes"
+            - "--lazyfree-lazy-expire yes"
+            - "--appendonly no"
+            - "--appendfsync everysec"
+            - "--auto-aof-rewrite-percentage 100"
+            - "--auto-aof-rewrite-min-size 64mb"
+            - "--hz 10"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
