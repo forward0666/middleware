@@ -29,16 +29,7 @@ service:
   port: 3000
 
 ingress:
-  enabled: true
-  className: "nginx"
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
-  hosts:
-    - host: harness.9.9.9.9.nip.io
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
+  enabled: false
 
 storage:
   persistentVolume:
