@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "outline.fullname" . }}
+  labels:
+    app: {{ include "outline.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "outline.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "outline.name" . }}
+    spec:
+      containers:
+        - name: outline
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PGSSLMODE
+              value: "disable"
+            - name: DATABASE_URL
+              value: "postgres://{{ .Values.postgresql.external.user }}:{{ .Values.postgresql.external.password }}@{{ .Values.postgresql.external.host }}:{{ .Values.postgresql.external.port }}/{{ .Values.postgresql.external.database }}"
+            - name: REDIS_URL
+              value: "redis://{{ .Values.redis.external.host }}:{{ .Values.redis.external.port }}"
+            - name: AWS_ACCESS_KEY_ID
+              value: "{{ .Values.minio.external.accessKey }}"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "{{ .Values.minio.external.secretKey }}"
+            - name: AWS_S3_UPLOAD_BUCKET_URL
+              value: "{{ .Values.minio.external.endpoint }}"
+            - name: AWS_S3_UPLOAD_BUCKET_NAME
+              value: "{{ .Values.minio.external.bucket }}"
+            - name: AWS_REGION
+              value: "us-east-1"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: secret_key
+            - name: UTILS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: utils_secret
+            - name: DEFAULT_LANGUAGE
+              value: "{{ .Values.env.DEFAULT_LANGUAGE }}"
+            - name: FORCE_HTTPS
+              value: "{{ .Values.env.FORCE_HTTPS }}"
+            - name: URL
+              value: "{{ .Values.env.URL }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nacos.fullname" . }}
+spec:
+  ports:
+    - name: client
+      port: {{ .Values.service.ports.client }}
+      targetPort: 8848
+    - name: rpc
+      port: {{ .Values.service.ports.rpc }}
+      targetPort: 9848
+    - name: raft
+      port: {{ .Values.service.ports.raft }}
+      targetPort: 9849
+  selector:
+    app: {{ include "nacos.name" . }}

@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: rabbitmq
+  tag: 3.9.2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    amqp: 5672
+    management: 15672
+
+user: guest
+password: guest
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+  limits:
+    memory: 256Mi
+    cpu: 200m

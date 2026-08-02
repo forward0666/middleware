@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: nacos/nacos-server
+  tag: v3.1.1
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    client: 8848
+    rpc: 9848
+    raft: 9849
+
+mode: standalone
+
+db:
+  host: mysql
+  port: 3306
+  name: nacos
+  user: root
+  password: changeme123
+
+persistence:
+  enabled: false
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 200m
+  limits:
+    memory: 1Gi
+    cpu: 500m

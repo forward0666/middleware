@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nacos.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "nacos.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "nacos.name" . }}
+    spec:
+      containers:
+        - name: nacos
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8848
+            - containerPort: 9848
+            - containerPort: 9849
+          env:
+            - name: MODE
+              value: "{{ .Values.mode }}"
+            - name: MYSQL_SERVICE_HOST
+              value: "{{ .Values.db.host }}"
+            - name: MYSQL_SERVICE_PORT
+              value: "{{ .Values.db.port }}"
+            - name: MYSQL_SERVICE_DB_NAME
+              value: "{{ .Values.db.name }}"
+            - name: MYSQL_SERVICE_USER
+              value: "{{ .Values.db.user }}"
+            - name: MYSQL_SERVICE_PASSWORD
+              value: "{{ .Values.db.password }}"
+            - name: NACOS_SERVER_PORT
+              value: "8848"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

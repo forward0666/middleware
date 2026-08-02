@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: mongo
+  tag: 8.2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 27017
+
+rootUser: root
+rootPassword: changeme123
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 200m
+  limits:
+    memory: 1Gi
+    cpu: 500m

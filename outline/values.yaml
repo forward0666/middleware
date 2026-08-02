@@ -1,0 +1,62 @@
+# Outline Wiki Configuration
+replicaCount: 1
+
+image:
+  repository: docker.getoutline.com/outlinewiki/outline
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: outline.local
+  tls: false
+
+# Database - external (from backup restore)
+postgresql:
+  enabled: false
+  external:
+    host: outline-db-postgresql
+    port: 5432
+    database: outline
+    user: outline
+    password: OutlineDB2026!
+
+redis:
+  enabled: false
+  external:
+    host: outline-redis-master
+    port: 6379
+    password: ""
+
+minio:
+  enabled: false
+  external:
+    endpoint: outline-minio:9000
+    accessKey: outline
+    secretKey: OutlineMinio2026!
+    bucket: outline
+
+# Outline env vars
+env:
+  SECRET_KEY: "change-me-to-a-random-secret-key-in-production"
+  UTILS_SECRET: "change-me-to-another-random-secret"
+  DEFAULT_LANGUAGE: "en_US"
+  FORCE_HTTPS: "false"
+  URL: "http://outline.local"
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 500m
+
+persistence:
+  enabled: true
+  size: 1Gi

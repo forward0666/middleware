@@ -1,0 +1,31 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: 16-alpine
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5432
+
+databases:
+  - name: outline
+    user: outline
+    password: OutlineDB2026!
+  - name: litellm
+    user: litellm
+    password: changeme123
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 300m
