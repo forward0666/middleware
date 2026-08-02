@@ -12,10 +12,6 @@ spec:
       labels:
         app: {{ include "rabbitmq.name" . }}
     spec:
-      volumes:
-        - name: config
-          configMap:
-            name: {{ include "rabbitmq.fullname" . }}-config
       containers:
         - name: rabbitmq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -29,9 +25,28 @@ spec:
               value: "{{ .Values.password }}"
             - name: RABBITMQ_ERLANG_COOKIE
               value: secret-cookie-for-cluster
-          volumeMounts:
-            - name: config
-              mountPath: /etc/rabbitmq/rabbitmq.conf
-              subPath: rabbitmq.conf
+          command:
+            - sh
+            - -c
+            - |
+              cat > /etc/rabbitmq/rabbitmq.conf << 'RMQEOF'
+              default_user = {{ .Values.user }}
+              default_pass = {{ .Values.password }}
+              vm_memory_high_watermark.relative = {{ .Values.config.vmMemoryHighWatermark }}
+              vm_memory_high_watermark_paging_ratio = {{ .Values.config.vmMemoryHighWatermarkPagingRatio }}
+              heartbeat = {{ .Values.config.heartbeat }}
+              max_message_size = {{ .Values.config.maxMessageSize }}
+              default_queue_type = {{ .Values.config.defaultQueueType }}
+              channel_max = {{ .Values.config.channelMax }}
+              connection_max = {{ .Values.config.connectionMax }}
+              frame_max = {{ .Values.config.frameMax }}
+              tcp_listen_options.backlog = {{ .Values.config.tcpListenOptions.backlog }}
+              tcp_listen_options.nodelay = {{ .Values.config.tcpListenOptions.nodelay }}
+              management.path_prefix = {{ .Values.config.managementPathPrefix }}
+              collect_statistics = {{ .Values.config.collectStatistics }}
+              log.level = {{ .Values.config.logLevel }}
+              disk_free_limit.absolute = {{ .Values.config.diskFreeLimit }}
+              RMQEOF
+              rabbitmq-server
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

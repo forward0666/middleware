@@ -16,10 +16,7 @@ config:
   timeout: 300
   tcpKeepalive: 60
   databases: 16
-  save:
-    - 900 1
-    - 300 10
-    - 60 10000
+  save: "900 1 300 10 60 10000"
   appendonly: yes
   appendfsync: everysec
   noAppendfsyncOnRewrite: yes
