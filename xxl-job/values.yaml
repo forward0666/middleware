@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image:
+  repository: xuxueli/xxl-job-admin
+  tag: "2.4.2"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+env:
+  - name: JAVA_OPTS
+    value: "-Xmx512m"
+  - name: PARAMS
+    value: >-
+      --server.port=8080
+      --spring.datasource.url=jdbc:mysql://mysql-service.mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      --spring.datasource.username=root
+      --spring.datasource.password=Admin@123
+      --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+resources:
+  limits:
+    cpu: "1"
+    memory: 1Gi
+  requests:
+    cpu: 200m
+    memory: 512Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
