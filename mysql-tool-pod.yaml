@@ -7,11 +7,10 @@ spec:
   restartPolicy: Never
   containers:
   - name: mysql-tool
-    image: alpine:3.19
+    image: mysql:8.0
     command:
-      - sh
+      - bash
       - -c
       - |
-        apk add --no-cache mariadb-client >/dev/null 2>&1
-        echo 'ALTER USER "root"@"%" IDENTIFIED WITH mysql_native_password BY "Admin@123"; FLUSH PRIVILEGES; CREATE DATABASE IF NOT EXISTS xxl_job DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;' | mysql -h middleware-mysql -u root -pAdmin@123
-        echo "Done"
+        mysql -h middleware-mysql -u root --password=Admin@123 --default-auth=mysql_native_password -e 'ALTER USER "root"@"%" IDENTIFIED WITH mysql_native_password BY "Admin@123"; FLUSH PRIVILEGES; CREATE DATABASE IF NOT EXISTS xxl_job DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
+        echo "DB Init Done"
