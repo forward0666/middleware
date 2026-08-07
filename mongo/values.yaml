@@ -17,7 +17,7 @@ config:
   wiredTigerCacheSizeGb: 0.5
   wiredTigerMaxCacheOverflow: 1
   maxConnections: 100
-  operationProfilingMode: slowOp
+  operationProfilingMode: 1
   slowOpThresholdMs: 200
   logLevel: 0
   setParameter:
