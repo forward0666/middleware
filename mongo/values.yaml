@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: mongo
-  tag: 8.0.4
+  tag: 8.0.28
   pullPolicy: IfNotPresent
 
 service:

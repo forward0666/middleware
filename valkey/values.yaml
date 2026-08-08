@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: valkey/valkey
-  tag: 7.2.8-alpine
+  tag: 7.2.14-alpine
   pullPolicy: IfNotPresent
 
 service:

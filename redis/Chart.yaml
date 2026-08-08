@@ -3,4 +3,4 @@ name: redis
 description: Redis 7.0
 type: application
 version: 1.0.0
-appVersion: 7.0
+appVersion: 7.4.10
