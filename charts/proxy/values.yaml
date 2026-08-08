@@ -10,21 +10,18 @@ imagePullSecrets:
 
 service:
   type: ClusterIP
-  port: 8094
+  port: 8080
 
 timezone: Asia/Shanghai
 
-javaOpts: "-Xms256m -Xmx512m"
-
-nacos:
-  addr: "nacos.middleware:8848"
-  namespace: ""
-  group: "devops"
+# Route format: path->target,path->target
+proxyRoutes: ""
+# Example: /user/tool/ittool->http://it-tools:80
 
 resources:
   requests:
-    memory: 256Mi
-    cpu: 200m
+    memory: 64Mi
+    cpu: 100m
   limits:
-    memory: 512Mi
-    cpu: 500m
+    memory: 128Mi
+    cpu: 200m

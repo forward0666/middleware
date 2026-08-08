@@ -19,19 +19,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8093
+            - containerPort: 8080
               name: http
           env:
             - name: TZ
               value: "{{ .Values.timezone }}"
-            - name: JAVA_OPTS
-              value: "{{ .Values.javaOpts }}"
-            - name: NACOS_ADDR
-              value: "{{ .Values.nacos.addr }}"
-            - name: NACOS_NAMESPACE
-              value: "{{ .Values.nacos.namespace }}"
-            - name: NACOS_GROUP
-              value: "{{ .Values.nacos.group }}"
+            - name: PROXY_PORT
+              value: "8080"
+            - name: PROXY_ROUTES
+              value: "{{ .Values.proxyRoutes }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       imagePullSecrets:
