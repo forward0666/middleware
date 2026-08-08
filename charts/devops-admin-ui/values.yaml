@@ -28,12 +28,9 @@ resources:
     cpu: 200m
 
 ingress:
-  enabled: false
-  className: nginx
-  host: u8-web-test.gfkdf.com
+  enabled: true
+  className: traefik
+  host: devops.192.168.86.9.nip.io
   path: /
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  tls:
-    - hosts:
-        - u8-web-test.gfkdf.com
+  annotations: {}
+  tls: []
