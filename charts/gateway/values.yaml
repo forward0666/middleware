@@ -1,12 +1,12 @@
 replicaCount: 1
 
 image:
-  repository: registry.cn-hangzhou.aliyuncs.com/devops-admin/gateway
+  repository: look0608/devops-admin-gateway
   tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
-  - name: aliyun-registry
+  - name: docker-hub
 
 service:
   type: ClusterIP
@@ -18,7 +18,7 @@ javaOpts: "-Xms256m -Xmx512m"
 
 nacos:
   addr: "nacos.middleware:8848"
-  namespace: "devops"
+  namespace: ""
   group: "devops"
 
 resources:

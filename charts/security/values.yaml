@@ -1,16 +1,16 @@
 replicaCount: 1
 
 image:
-  repository: registry.cn-hangzhou.aliyuncs.com/devops-admin/security
+  repository: look0608/devops-admin-security
   tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
-  - name: aliyun-registry
+  - name: docker-hub
 
 service:
   type: ClusterIP
-  port: 8089
+  port: 8082
 
 timezone: Asia/Shanghai
 
@@ -18,7 +18,7 @@ javaOpts: "-Xms256m -Xmx512m"
 
 nacos:
   addr: "nacos.middleware:8848"
-  namespace: "devops"
+  namespace: ""
   group: "devops"
 
 resources:

@@ -1,18 +1,23 @@
 replicaCount: 1
 
 image:
-  repository: registry.cn-hangzhou.aliyuncs.com/devops-admin/devops-admin-ui
+  repository: look0608/devops-admin-frontend
   tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
-  - name: aliyun-registry
+  - name: docker-hub
 
 service:
   type: ClusterIP
   port: 80
 
 timezone: Asia/Shanghai
+
+nacos:
+  addr: "nacos.middleware:8848"
+  namespace: ""
+  group: "devops"
 
 resources:
   requests:
@@ -23,7 +28,7 @@ resources:
     cpu: 200m
 
 ingress:
-  enabled: true
+  enabled: false
   className: nginx
   host: u8-web-test.gfkdf.com
   path: /
