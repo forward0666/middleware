@@ -17,7 +17,7 @@ timezone: Asia/Shanghai
 nacos:
   addr: "nacos.middleware:8848"
   namespace: ""
-  group: "devops"
+  group: "DEFAULT_GROUP"
 
 resources:
   requests:

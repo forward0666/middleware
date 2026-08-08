@@ -19,7 +19,7 @@ javaOpts: "-Xms256m -Xmx512m"
 nacos:
   addr: "nacos.middleware:8848"
   namespace: ""
-  group: "devops"
+  group: "DEFAULT_GROUP"
 
 resources:
   requests:
