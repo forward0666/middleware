@@ -1,0 +1,84 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: neuvector
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://neuvector.github.io/neuvector-helm
+    chart: core
+    targetRevision: 2.8.4
+    helm:
+      values: |
+        # Minimal NeuVector configuration for vulnerability scanning
+        global:
+          imageTag: 5.4.2
+        controller:
+          pvc: false
+          replicas: 1
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+        enforcer:
+          replicas: 1
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+        scanner:
+          replicas: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        manager:
+          enabled: true
+          ingress:
+            enabled: true
+            host: neuvector.kube.work
+            path: /
+            annotations:
+              kubernetes.io/ingress.class: traefik
+        cri:
+          enabled: false
+        docker:
+          enabled: true
+        containerd:
+          enabled: false
+        kubelet:
+          enabled: true
+        webui:
+          enabled: true
+          ingress:
+            enabled: true
+            host: neuvector.kube.work
+            path: /
+            annotations:
+              kubernetes.io/ingress.class: traefik
+        istio:
+          enabled: false
+        enablePodSecurityPolicy: false
+        autoGenerateCert: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: neuvector
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
