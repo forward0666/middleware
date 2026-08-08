@@ -9,7 +9,7 @@ imagePullSecrets:
   - name: docker-hub
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
 
 timezone: Asia/Shanghai
