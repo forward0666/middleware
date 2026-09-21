@@ -13,6 +13,8 @@ spec:
       labels:
         app: {{ include "mysql.name" . }}
     spec:
+      securityContext:
+        fsGroup: 0
       containers:
         - name: mysql
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -28,6 +30,8 @@ spec:
               value: "{{ .Values.database }}"
           command:
             - mysqld
+            - --skip-log-bin
+            - --user=root
             - --character-set-server={{ .Values.config.characterSetServer }}
             - --collation-server={{ .Values.config.collationServer }}
             - --max_connections={{ .Values.config.maxConnections }}
