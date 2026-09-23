@@ -31,7 +31,10 @@ spec:
             - name: MYSQL_SERVICE_USER
               value: "{{ .Values.db.user }}"
             - name: MYSQL_SERVICE_PASSWORD
-              value: "{{ .Values.db.password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-secret
+                  key: db-password
             - name: MYSQL_SERVICE_DB_PARAM
               value: "{{ .Values.db.params }}"
             - name: NACOS_SERVER_PORT
@@ -41,11 +44,20 @@ spec:
             - name: NACOS_AUTH_ENABLE
               value: "true"
             - name: NACOS_AUTH_TOKEN
-              value: "{{ .Values.auth.token }}"
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-secret
+                  key: auth-token
             - name: NACOS_AUTH_IDENTITY_KEY
-              value: "{{ .Values.auth.identityKey }}"
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-secret
+                  key: auth-identity-key
             - name: NACOS_AUTH_IDENTITY_VALUE
-              value: "{{ .Values.auth.identityValue }}"
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-secret
+                  key: auth-identity-value
             - name: NACOS_AUTH_TOKEN_EXPIRE_SECONDS
               value: "{{ .Values.auth.tokenExpireSeconds }}"
             - name: NACOS_AUTH_CACHE_ENABLE

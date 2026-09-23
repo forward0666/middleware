@@ -10,7 +10,15 @@ service:
   port: 27017
 
 rootUser: root
-rootPassword: MongoAdmin2026!
+# rootPassword: MongoAdmin2026!  # moved to external-secrets when enabled
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    rootPassword: /middleware/mongo/root-password
 initDatabase: admin
 
 config:

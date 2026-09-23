@@ -40,7 +40,7 @@ storage:
     annotations: {}
 
 env:
-  GITNESS_PRINCIPAL_ADMIN_PASSWORD: admin123
+  # GITNESS_PRINCIPAL_ADMIN_PASSWORD: admin123  # moved to external-secrets when enabled
   GITNESS_USER_SIGNUP_ENABLED: "true"
 
 resources:
@@ -61,3 +61,11 @@ dind:
   enabled: false
   image: docker:24.0.3-dind
   resources: {}
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    adminPassword: /middleware/harness/admin-password

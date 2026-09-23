@@ -22,9 +22,15 @@ spec:
             - name: RABBITMQ_DEFAULT_USER
               value: "{{ .Values.user }}"
             - name: RABBITMQ_DEFAULT_PASS
-              value: "{{ .Values.password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: password
             - name: RABBITMQ_ERLANG_COOKIE
-              value: secret-cookie-for-cluster
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: erlang-cookie
           command:
             - sh
             - -c

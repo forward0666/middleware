@@ -9,13 +9,14 @@ service:
   type: ClusterIP
   port: 5432
 
+adminPassword: changeme123
 databases:
   - name: outline
     user: outline
-    password: OutlineDB2026!
+    password: OutlineDB2026!  # external-secrets: /middleware/postgres/outline-password
   - name: litellm
     user: litellm
-    password: changeme123
+    password: changeme123  # external-secrets: /middleware/postgres/litellm-password
 
 config:
   maxConnections: 50
@@ -60,3 +61,13 @@ resources:
   limits:
     memory: 512Mi
     cpu: 500m
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    outlinePassword: /middleware/postgres/outline-password
+    litellmPassword: /middleware/postgres/litellm-password
+    postgresAdminPassword: /middleware/postgres/admin-password

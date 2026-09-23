@@ -19,7 +19,7 @@ db:
   port: 3306
   name: nacos
   user: root
-  password: MysqlAdmin2026!
+  password: MysqlAdmin2026!  # external-secrets: /middleware/nacos/db-password
   params: "characterEncoding=utf8&connectTimeout=2000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=UTC"
   pool:
     maxActive: 20
@@ -29,7 +29,7 @@ db:
     validationTimeout: 3000
 
 auth:
-  token: "TkFDT1NfQVVUSF9UT0tFTl82NEJZVEVTX0JBU0U2NF9TRUNSRVRfS0VZXzIwMjY="
+  # token moved to external-secrets when enabled
   identityKey: "nacosIdentityKey"
   identityValue: "nacosIdentityValue2026"
   tokenExpireSeconds: 28800
@@ -52,3 +52,14 @@ resources:
   limits:
     memory: 768Mi
     cpu: 500m
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    dbPassword: /middleware/nacos/db-password
+    authToken: /middleware/nacos/auth-token
+    authIdentityKey: /middleware/nacos/auth-identity-key
+    authIdentityValue: /middleware/nacos/auth-identity-value

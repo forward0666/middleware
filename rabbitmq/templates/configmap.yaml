@@ -23,7 +23,7 @@ data:
     num_acceptors.ssl = 0
     default_vhost = /
     default_user = {{ .Values.user }}
-    default_pass = {{ .Values.password }}
+    default_pass = {{ .Values.externalSecret.enabled | ternary "$(RABBITMQ_PASSWORD)" .Values.password }}
     loopback_users.guest = false
     cluster_partition_handling = pause_minority
     queue_master_locator = min-masters

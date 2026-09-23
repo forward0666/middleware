@@ -1,3 +1,4 @@
+# password: RabbitMQ2026!  # moved to external-secrets when enabled
 replicaCount: 1
 
 image:
@@ -12,7 +13,7 @@ service:
     management: 15672
 
 user: middleware
-password: RabbitMQ2026!
+  # password: RabbitMQ2026!
 
 config:
   vm_memory_high_watermark: 0.6
@@ -39,3 +40,12 @@ resources:
   limits:
     memory: 512Mi
     cpu: 500m
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    password: /middleware/rabbitmq/password
+    erlangCookie: /middleware/rabbitmq/erlang-cookie

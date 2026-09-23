@@ -9,7 +9,15 @@ service:
   type: ClusterIP
   port: 3306
 
-rootPassword: MysqlAdmin2026!
+# rootPassword: MysqlAdmin2026!  # moved to external-secrets when enabled
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    rootPassword: /middleware/mysql/root-password
 database: ""
 
 config:

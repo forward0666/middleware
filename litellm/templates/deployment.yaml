@@ -19,7 +19,12 @@ spec:
             - containerPort: 4000
           env:
             - name: DATABASE_URL
-              value: "postgresql://{{ .Values.db.user }}:{{ .Values.db.password }}@{{ .Values.db.host }}:{{ .Values.db.port }}/{{ .Values.db.name }}"
+              value: "postgresql://{{ .Values.db.user }}:$(DB_PASSWORD)@{{ .Values.db.host }}:{{ .Values.db.port }}/{{ .Values.db.name }}"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-secret
+                  key: db-password
             - name: LITELLM_MASTER_KEY
               valueFrom:
                 secretKeyRef:

@@ -11,8 +11,17 @@ service:
     api: 9000
     console: 9001
 
-accessKey: minioadmin
-secretKey: MinioAdmin2026!
+# accessKey: minioadmin       # moved to K8s secret when externalSecret enabled
+# secretKey: MinioAdmin2026!  # moved to K8s secret when externalSecret enabled
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    accessKey: /middleware/minio/access-key
+    secretKey: /middleware/minio/secret-key
 
 config:
   region: us-east-1

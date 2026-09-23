@@ -8,9 +8,15 @@ spec:
   containers:
   - name: mysql-tool
     image: mysql:8.0
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysql-secret
+          key: root_password
     command:
       - bash
       - -c
       - |
-        mysql -h middleware-mysql -u root --password=Admin@123 --default-auth=mysql_native_password -e 'ALTER USER "root"@"%" IDENTIFIED WITH mysql_native_password BY "Admin@123"; FLUSH PRIVILEGES; CREATE DATABASE IF NOT EXISTS xxl_job DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
+        mysql -h middleware-mysql -u root --password="$MYSQL_ROOT_PASSWORD" --default-auth=mysql_native_password -e 'ALTER USER "root"@"%" IDENTIFIED WITH mysql_native_password BY "$MYSQL_ROOT_PASSWORD"; FLUSH PRIVILEGES; CREATE DATABASE IF NOT EXISTS xxl_job DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
         echo "DB Init Done"

@@ -34,7 +34,10 @@ spec:
             - name: AWS_ACCESS_KEY_ID
               value: "{{ .Values.minio.external.accessKey }}"
             - name: AWS_SECRET_ACCESS_KEY
-              value: "{{ .Values.minio.external.secretKey }}"
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secret
+                  key: minio-secretkey
             - name: AWS_S3_UPLOAD_BUCKET_URL
               value: "{{ .Values.minio.external.endpoint }}"
             - name: AWS_S3_UPLOAD_BUCKET_NAME

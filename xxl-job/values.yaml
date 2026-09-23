@@ -1,5 +1,9 @@
 replicaCount: 1
 
+db:
+  # password: Admin@123  # moved to external-secrets when enabled
+  password: Admin@123
+
 image:
   repository: xuxueli/xxl-job-admin
   tag: "2.4.2"
@@ -18,7 +22,7 @@ env:
       --server.port=8080
       --spring.datasource.url=jdbc:mysql://mysql-service.mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
       --spring.datasource.username=root
-      --spring.datasource.password=Admin@123
+      --spring.datasource.password=$(DB_PASSWORD)
       --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 resources:
@@ -32,3 +36,11 @@ resources:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    dbPassword: /middleware/xxl-job/db-password

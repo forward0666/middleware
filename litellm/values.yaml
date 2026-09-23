@@ -14,7 +14,7 @@ db:
   port: 5432
   name: litellm
   user: litellm
-  password: changeme123
+  # password: changeme123  # moved to external-secrets when enabled
   connectionPoolMax: 20
   connectionPoolMin: 4
   connectionTimeoutMs: 10000
@@ -40,3 +40,12 @@ resources:
   limits:
     memory: 2Gi
     cpu: 500m
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  store:
+    name: main
+    kind: ClusterSecretStore
+  remoteRefs:
+    masterKey: /middleware/litellm/master-key
+    dbPassword: /middleware/litellm/db-password
