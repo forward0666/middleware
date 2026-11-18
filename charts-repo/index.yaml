@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  omniroute:
+  - apiVersion: v2
+    appVersion: 3.8.52-web-20261026
+    created: "2026-11-18T06:51:48.6486121Z"
+    description: OmniRoute model gateway (dashboard :31228 / aux :31229) with redis
+      sidecar stack
+    digest: 2911fe7ef643d8c97e04f3cccbef98345c1547d0f7096dd59e3af0657e42b191
+    name: omniroute
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/forward0666/middleware/main/charts-repo/omniroute-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-11-18T06:51:48.648093504Z"
