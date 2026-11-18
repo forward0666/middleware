@@ -1,0 +1,3 @@
+DeepSeek Harness (dsh) deployed.
+Web UI: http://<node-ip>:{{ .Values.service.http.nodePort }}
+首次访问 token 在 pod 日志里：kubectl logs -n <ns> deploy/{{ include "dsh.fullname" . }} | grep -i token

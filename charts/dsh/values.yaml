@@ -1,0 +1,45 @@
+# ===== DeepSeek Harness (dsh) Helm values =====
+replicaCount: 1
+
+image:
+  registry: harbor.192.168.86.11.nip.io
+  repository: devops-admin/dsh
+  tag: 0.2.2-rc.5
+  pullPolicy: IfNotPresent
+
+# dsh 只绑 127.0.0.1；镜像内 dsh-forward.mjs 在 8080 做 TCP 中继
+relayPort: 8080
+
+# 留空=用 chart 自建 Secret；填已有 Secret 名则复用（secret.create 应设 false）
+existingSecret: ""
+secret:
+  create: true
+  deepseekApiKey: ""
+
+env:
+  # /api 浏览器信任围栏：放行的访问域名（NodePort/Ingress 主机名，逗号分隔）
+  trustedHosts: ""
+
+service:
+  type: NodePort
+  http: { port: 8080, nodePort: 31380 }
+
+resources:
+  requests: { cpu: 50m, memory: 256Mi }
+  limits:   { cpu: 500m, memory: 1Gi }
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClass: nfs
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  mountPath: /data
+
+probes:
+  path: /healthz
+  port: 8080
+
+startup:   { periodSeconds: 10, failureThreshold: 30, timeoutSeconds: 3 }
+readiness: { periodSeconds: 10, failureThreshold: 6,  timeoutSeconds: 3 }
+liveness:  { periodSeconds: 15, failureThreshold: 8,  timeoutSeconds: 3 }
