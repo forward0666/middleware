@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "omniroute.fullname" . }}-redis
+  labels:
+    {{- include "omniroute.redisLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omniroute-redis
+  template:
+    metadata:
+      labels:
+        app: omniroute-redis
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: redis
+          image: "{{ .Values.redis.image.registry }}/{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+          imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
+          args: ["redis-server", "--appendonly", "yes", "--dir", {{ .Values.persistence.redis.mountPath | quote }}]
+          ports:
+            - name: redis
+              containerPort: {{ .Values.redis.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.redis.resources | nindent 12 }}
+          volumeMounts:
+            - name: redis-data
+              mountPath: {{ .Values.persistence.redis.mountPath }}
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.redis.existingClaim }}

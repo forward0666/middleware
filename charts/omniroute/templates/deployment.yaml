@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "omniroute.fullname" . }}
+  labels:
+    {{- include "omniroute.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "omniroute.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "omniroute.name" . }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: omniroute
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["sh", "-c", {{ .Values.command | quote }}]
+          env:
+            - name: DATA_DIR
+              value: {{ .Values.env.dataDir | quote }}
+            - name: REQUIRE_API_KEY
+              value: {{ .Values.env.requireApiKey | quote }}
+            - name: OMNIROUTE_MEMORY_MB
+              value: {{ .Values.env.memoryMb | quote }}
+            - name: NODE_OPTIONS
+              value: {{ .Values.env.nodeOptions | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.existingSecret | default (include "omniroute.fullname" .) }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.http.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }}, scheme: HTTP }
+            {{- toYaml .Values.probes.liveness | nindent 12 }}
+          readinessProbe:
+            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }}, scheme: HTTP }
+            {{- toYaml .Values.probes.readiness | nindent 12 }}
+          startupProbe:
+            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }}, scheme: HTTP }
+            {{- toYaml .Values.probes.startup | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.data.mountPath }}
+            - name: data
+              mountPath: /home/node/.omniroute
+              subPath: .omniroute
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.data.existingClaim }}
