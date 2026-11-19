@@ -39,13 +39,16 @@ spec:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
           startupProbe:
-            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }} }
+            exec:
+              command: ["node","-e","fetch('http://127.0.0.1:'+process.env.DSH_WEB_PORT+'/').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
             {{- toYaml .Values.startup | nindent 12 }}
           readinessProbe:
-            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }} }
+            exec:
+              command: ["node","-e","fetch('http://127.0.0.1:'+process.env.DSH_WEB_PORT+'/').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
             {{- toYaml .Values.readiness | nindent 12 }}
           livenessProbe:
-            httpGet: { path: {{ .Values.probes.path }}, port: {{ .Values.probes.port }} }
+            exec:
+              command: ["node","-e","fetch('http://127.0.0.1:'+process.env.DSH_WEB_PORT+'/').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
             {{- toYaml .Values.liveness | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

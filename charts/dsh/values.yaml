@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  registry: harbor.192.168.86.11.nip.io
+  registry: harbor.192.168.86.11.nip.io:8443
   repository: devops-admin/dsh
   tag: 0.2.2-rc.5
   pullPolicy: IfNotPresent

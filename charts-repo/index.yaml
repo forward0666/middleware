@@ -3,24 +3,24 @@ entries:
   dsh:
   - apiVersion: v2
     appVersion: 0.2.2-rc.5
-    created: "2026-11-18T15:27:20.191111948Z"
+    created: "2026-11-19T07:05:57.02128472Z"
     description: DeepSeek Harness (dsh) agent harness with Web UI
-    digest: f879d9d2790e9d78acbcb52af56b933d6b002d0a31f1048e22c877409e215d56
+    digest: 083adf2f166a63ba9dd704f4c17c05ebbcb28a7c0abd196ba7bf2d48d59bb79e
     name: dsh
     type: application
     urls:
-    - https://raw.githubusercontent.com/forward0666/middleware/main/charts-repo/dsh-0.1.0.tgz
-    version: 0.1.0
+    - https://raw.githubusercontent.com/forward0666/middleware/main/charts-repo/dsh-0.1.1.tgz
+    version: 0.1.1
   omniroute:
   - apiVersion: v2
     appVersion: 3.8.52-web-20261026
-    created: "2026-11-18T15:27:20.191551144Z"
+    created: "2026-11-19T07:05:57.021761615Z"
     description: OmniRoute model gateway (dashboard :31228 / aux :31229) with redis
       sidecar stack
-    digest: 2911fe7ef643d8c97e04f3cccbef98345c1547d0f7096dd59e3af0657e42b191
+    digest: e3958dd51936914bf737bb04870174b533120f79848da62c458e61f8121d7a03
     name: omniroute
     type: application
     urls:
-    - https://raw.githubusercontent.com/forward0666/middleware/main/charts-repo/omniroute-0.1.0.tgz
-    version: 0.1.0
-generated: "2026-11-18T15:27:20.188541871Z"
+    - https://raw.githubusercontent.com/forward0666/middleware/main/charts-repo/omniroute-0.1.1.tgz
+    version: 0.1.1
+generated: "2026-11-19T07:05:57.020662926Z"

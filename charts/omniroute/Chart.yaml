@@ -2,5 +2,5 @@ apiVersion: v2
 name: omniroute
 description: OmniRoute model gateway (dashboard :31228 / aux :31229) with redis sidecar stack
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "3.8.52-web-20261026"

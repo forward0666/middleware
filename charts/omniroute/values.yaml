@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  registry: harbor.192.168.86.11.nip.io
+  registry: harbor.192.168.86.11.nip.io:8443
   repository: devops-admin/omniroute
   tag: 3.8.52-web-20261026
   pullPolicy: IfNotPresent
@@ -19,7 +19,7 @@ secret:
 env:
   dataDir: /app/data
   requireApiKey: "true"
-  memoryMb: "1024"
+  memoryMb: "512"
   nodeOptions: "--import=file:///app/data/ext/cloudflare-mcp-tools.mjs"
 
 # 启动前先打 MCP 补丁再起主进程
@@ -34,7 +34,7 @@ probes:
 
 resources:
   requests: { cpu: 50m, memory: 256Mi }
-  limits:   { cpu: "1", memory: 1536Mi }
+  limits:   { cpu: 500m, memory: 768Mi }
 
 service:
   type: NodePort
@@ -43,14 +43,14 @@ service:
 
 redis:
   image:
-    registry: harbor.192.168.86.11.nip.io
+    registry: harbor.192.168.86.11.nip.io:8443
     repository: library/omniroute-redis
     tag: 8.6.5
     pullPolicy: IfNotPresent
   service: { port: 6379 }
   resources:
     requests: { cpu: 25m, memory: 64Mi }
-    limits:   { cpu: 250m, memory: 256Mi }
+    limits:   { cpu: 100m, memory: 128Mi }
 
 # 复用既有 PVC（数据在内，绝不重建）
 persistence:
